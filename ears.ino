@@ -7,7 +7,7 @@
 #define BUTTON_PIN 5  // Button connected to Pin D5
 #define NUMPIXELS 17  //number of Led on the light strip
 
-#define NUMSETTINGS 7
+#define NUMSETTINGS 8
 
 #define NUM_CIRCLE 12
 
@@ -17,7 +17,7 @@ Adafruit_NeoPixel pixels(NUMPIXELS, LED_PIN, NEO_GRB + NEO_KHZ800);
 
 #define DELAYVAL 500  //time (in milliseconds) to pause between pixels
 
-int light_setting = 3;
+int light_setting = 1;
 
 void setup() {
   Serial.begin(9600);
@@ -475,34 +475,66 @@ void off() {
 int solid_idxs[3] = { 0, 11 };
 
 const uint32_t circle_colors[12] = {
-  pixels.Color(100, 100, 100),
-  pixels.Color(100, 0, 0),
-  pixels.Color(100, 0, 0),
-  pixels.Color(100, 0, 0),
-  pixels.Color(100, 0, 0),
-  pixels.Color(100, 0, 0),
-  pixels.Color(100, 100, 100),
-  pixels.Color(100, 0, 0),
-  pixels.Color(100, 0, 0),
-  pixels.Color(100, 0, 0),
-  pixels.Color(100, 0, 0),
-  pixels.Color(100, 0, 0),
+  pixels.Color(0, 140, 40),
+  pixels.Color(110, 100, 10),
+  pixels.Color(110, 100, 10),
+  pixels.Color(110, 100, 10),
+  pixels.Color(110, 100, 10),
+  pixels.Color(110, 100, 10),
+  pixels.Color(0, 140, 40),
+  pixels.Color(110, 100, 10),
+  pixels.Color(110, 100, 10),
+  pixels.Color(110, 100, 10),
+  pixels.Color(110, 100, 10),
+  pixels.Color(110, 100, 10),
 };
 
 const uint32_t line_colors [3] = {
-  pixels.Color(0, 110, 80),
-  pixels.Color(0, 110, 80),
-  pixels.Color(0, 110, 80),
+  pixels.Color(0, 140, 40),
+  pixels.Color(0, 140, 40),
+  pixels.Color(0, 140, 40),
 };
 
 const uint32_t line_background_colors [3] = {
-  pixels.Color(85, 110, 10),
-  pixels.Color(85, 110, 10),
-  pixels.Color(85, 110, 10),
+  pixels.Color(110, 100, 10),
+  pixels.Color(110, 100, 10),
+  pixels.Color(110, 100, 10),
 };
 
 // const uint32_t back_color = pixels.Color(100, 0, 0);
-const uint32_t back_color = pixels.Color(0, 110, 80),
+const uint32_t back_color = pixels.Color(0, 110, 80);
+
+
+
+const uint32_t red_circle_colors[12] = {
+  pixels.Color(200, 100, 0),
+  pixels.Color(100, 0, 0),
+  pixels.Color(100, 0, 0),
+  pixels.Color(100, 0, 0),
+  pixels.Color(100, 0, 0),
+  pixels.Color(100, 0, 0),
+  pixels.Color(200, 100, 0),
+  pixels.Color(100, 0, 0),
+  pixels.Color(100, 0, 0),
+  pixels.Color(100, 0, 0),
+  pixels.Color(100, 0, 0),
+  pixels.Color(100, 0, 0),
+};
+
+const uint32_t red_line_colors [3] = {
+  pixels.Color(100, 100, 0),
+  pixels.Color(100, 100, 0),
+  pixels.Color(100, 100, 0),
+};
+
+const uint32_t red_line_background_colors [3] = {
+  pixels.Color(100, 0, 0),
+  pixels.Color(100, 0, 0),
+  pixels.Color(100, 0, 0),
+};
+
+// const uint32_t back_color = pixels.Color(100, 0, 0);
+const uint32_t red_back_color = pixels.Color(100, 0, 0);
 
 void loop() {
   switch (light_setting) {
@@ -512,17 +544,20 @@ void loop() {
       // cyber(10, 10, 10);
       cyber(&circle_colors[0], back_color, &line_colors[0], &line_background_colors[0]);
     case 2:
-      solid_color(69, 9, 59);  // Pink
+      // const_cyber(0, 0, 0);
+      cyber(&red_circle_colors[0], red_back_color, &red_line_colors[0], &red_line_background_colors[0]);
     case 3:
+      solid_color(69, 9, 59);  // Pink
+    case 4:
       color_picker(100, 0, 0);
       // some_solid_color(80, 20, 20, solid_idxs, (sizeof(solid_idxs) / sizeof(int)));
       // solid_color(8, 8, 15);
       // night_mode();
-    case 4:
-      gold_random(50);
     case 5:
-      lightning(50);
+      gold_random(50);
     case 6:
+      lightning(50);
+    case 7:
       off();
   }
   Serial.write(light_setting);
