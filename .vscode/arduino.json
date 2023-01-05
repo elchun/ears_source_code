@@ -1,0 +1,6 @@
+{
+    "port": "/dev/tty.usbserial-1130",
+    "configuration": "cpu=atmega328",
+    "board": "arduino:avr:nano",
+    "sketch": "ears.ino"
+}
